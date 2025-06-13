@@ -52,6 +52,16 @@ app.post('/api/aidats/:id/ver', (req, res) => {
     res.json({ message: 'Aidat verildi olarak işaretlendi.' });
 });
 
+app.post('/api/aidats-reset', (req, res) => {
+    const data = JSON.parse(fs.readFileSync(aidatsPath));
+    data.forEach(item => {
+        item.status = false;
+        item.date = null;
+    });
+    fs.writeFileSync(aidatsPath, JSON.stringify(data, null, 2));
+    res.json({ message: 'Aidatlar sıfırlandı.' });
+});
+
 app.get('/api/transactions', (req, res) => {
     const data = JSON.parse(fs.readFileSync(transactionsPath));
     res.json(data);
@@ -86,7 +96,7 @@ app.delete('/api/transactions/:id', (req, res) => {
     } else if (deletedTransaction.type === 'gider') {
         balanceData.amount += deletedTransaction.cost;
     }
-    
+
     fs.writeFileSync(transactionsPath, JSON.stringify(transactions, null, 2));
     fs.writeFileSync(balancePath, JSON.stringify(balanceData, null, 2));
 
