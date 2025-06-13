@@ -31,7 +31,7 @@ function LastTasks() {
     setCost(0);
     setIsModalOpen(false);
   };
-  const confirm = (e,id) => {
+  const confirm = (id) => {
     deleteTransaction(id);
     message.success('Click on Yes');
   };
@@ -74,7 +74,7 @@ function LastTasks() {
         date: new Date().toISOString()
       };
       const response = await axios.post("http://localhost:3000/api/transactions-add", data);
-      console.log(response.transaction);
+      console.log(response);
       setDesc("");
       setCost(0);
       message.success("İşlem başarıyla eklendi");
@@ -120,7 +120,7 @@ function LastTasks() {
         dataSource={data}
         renderItem={item => (
           <List.Item key={item?.id} onClick={((e) => console.log(e.currentTarget.getAttribute("data-id")))} data-id={item?.id} className="!cursor-pointer hover:bg-gray-100 transition-colors">
-            <Typography.Text className={`${item.status === "gelir" ? "!text-green-500" : "!text-red-500"}  !font-bold min-w-[90px] lg:min-w-[200px]`}>{item.status ? "+ " : "- "}{item.cost} ₺</Typography.Text>
+            <Typography.Text className={`${item.status === "gelir" ? "!text-green-500" : "!text-red-500"}  !font-bold min-w-[90px] lg:min-w-[200px]`}>{item.status === "gelir" ? "+ " : "- "}{item.cost} ₺</Typography.Text>
             <Typography.Text className="!text-black !font-regular mx-auto">{item.desc}</Typography.Text>
             <Typography.Text className="!text-gray-400 !font-thin float-right">{String(formatDate(item.date))}</Typography.Text>
             <Popconfirm
@@ -128,7 +128,7 @@ function LastTasks() {
               placement="topRight"
               okType="danger"
               description="Bu işlemi silmek istediğine emin misin?"
-              onConfirm={(e) => confirm(e,item.id)}
+              onConfirm={() => confirm(item.id)}
               okText="Evet"
               cancelText="Hayır"
             >

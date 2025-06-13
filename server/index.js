@@ -73,6 +73,9 @@ app.post('/api/transactions-add', (req, res) => {
     const newTransaction = {
         ...req.body
     };
+    const balanceData = JSON.parse(fs.readFileSync(balancePath));
+    balanceData.amount += req.body.status === 'gelir' ? req.body.cost : -req.body.cost;
+    fs.writeFileSync(balancePath, JSON.stringify(balanceData, null, 2));
     data.push(newTransaction);
     fs.writeFileSync(transactionsPath, JSON.stringify(data, null, 2));
     res.json({ message: 'İşlem eklendi.', transaction: newTransaction });
@@ -89,9 +92,9 @@ app.delete('/api/transactions-delete/:id', (req, res) => {
     if (index === -1) return res.status(404).json({ message: 'İşlem bulunamadı.' });
     const deletedTransaction = transactions[index];
     transactions.splice(index, 1);
-    if (deletedTransaction.type === 'gelir') {
+    if (deletedTransaction.status === 'gelir') {
         balanceData.amount -= deletedTransaction.cost;
-    } else if (deletedTransaction.type === 'gider') {
+    } else if (deletedTransaction.status === 'gider') {
         balanceData.amount += deletedTransaction.cost;
     }
 
