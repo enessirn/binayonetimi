@@ -1,0 +1,19 @@
+[
+  {
+    "id": 1,
+    "name": "Daire 1",
+    "status": true,
+    "tarih": "2025-06-13T14:36:16.632Z"
+  },
+  {
+    "id": 2,
+    "name": "Daire 2",
+    "status": true
+  },
+  {
+    "id": 3,
+    "name": "Daire 3",
+    "status": true,
+    "date": "2025-06-13T15:01:19.047Z"
+  }
+]
