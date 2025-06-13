@@ -13,8 +13,8 @@ function App() {
       </div>
       <div className="card-list w-full px-8">
         <div className="border-b-2 border-gray-400 w-full flex flex-row justify-between my-8">
-           <p className="text-2xl text-gray-600 font-bold">Namık Şirin, hoş geldin!</p>
-           <h1 className=' text-2xl font-bold text-gray-600'>{currentDay} {months[currentMonth]} {currentYear}</h1>
+           <p className="text-xl lg:text-2xl text-gray-600 font-bold">Namık Şirin, hoş geldin!</p>
+           <h1 className='text-xl lg:text-2xl font-bold text-gray-600'>{currentDay} {months[currentMonth]} {currentYear}</h1>
         </div>
        
         <HomeCards />

@@ -71,9 +71,7 @@ app.get('/api/transactions', (req, res) => {
 app.post('/api/transactions-add', (req, res) => {
     const data = JSON.parse(fs.readFileSync(transactionsPath));
     const newTransaction = {
-        id: Date.now(),
-        ...req.body,
-        date: new Date().toISOString()
+        ...req.body
     };
     data.push(newTransaction);
     fs.writeFileSync(transactionsPath, JSON.stringify(data, null, 2));
@@ -81,7 +79,7 @@ app.post('/api/transactions-add', (req, res) => {
 });
 
 
-app.delete('/api/transactions/:id', (req, res) => {
+app.delete('/api/transactions-delete/:id', (req, res) => {
     // 1. İşlemler dosyasını oku
     const transactions = JSON.parse(fs.readFileSync(transactionsPath));
     const balanceData = JSON.parse(fs.readFileSync(balancePath));
