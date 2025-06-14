@@ -61,7 +61,7 @@
   },
   {
     "id": 11,
-    "name": "Gülcan UYSAL",
+    "name": "Serhat UYSAL",
     "status": false,
     "date": null
   },
@@ -80,18 +80,6 @@
   {
     "id": 14,
     "name": "Ali Kemal ŞİRİN",
-    "status": false,
-    "date": null
-  },
-  {
-    "id": 15,
-    "name": "Ayhan ŞİMŞEK",
-    "status": false,
-    "date": null
-  },
-  {
-    "id": 16,
-    "name": "Halil ERCAN",
     "status": false,
     "date": null
   }
