@@ -1,1 +1,64 @@
-[]
+[
+  {
+    "id": 1749887026561,
+    "desc": "Daire 1 Haziran ayı aidat ödemesi",
+    "cost": 200,
+    "status": "gelir",
+    "deleted": false,
+    "date": "2025-06-14T07:43:46.561Z"
+  },
+  {
+    "id": 1749887180004,
+    "desc": "Daire 2 Haziran ayı aidat ödemesi",
+    "cost": 200,
+    "status": "gelir",
+    "deleted": false,
+    "date": "2025-06-14T07:46:20.004Z"
+  },
+  {
+    "id": 1749887180748,
+    "desc": "Daire 3 Haziran ayı aidat ödemesi",
+    "cost": 200,
+    "status": "gelir",
+    "deleted": false,
+    "date": "2025-06-14T07:46:20.748Z"
+  },
+  {
+    "id": 1749887365400,
+    "desc": "Daire 4 Haziran ayı aidat ödemesi",
+    "cost": 200,
+    "status": "gelir",
+    "deleted": false,
+    "date": "2025-06-14T07:49:25.400Z"
+  },
+  {
+    "id": 1749888050553,
+    "desc": "Daire 5 Haziran ayı aidat ödemesi",
+    "cost": 200,
+    "status": "gelir",
+    "deleted": false,
+    "date": "2025-06-14T08:00:50.553Z"
+  },
+  {
+    "id": 1749888094025,
+    "desc": "asdada",
+    "cost": 2323,
+    "status": "gelir",
+    "date": "2025-06-14T08:01:34.025Z"
+  },
+  {
+    "id": 1749888128439,
+    "desc": "2131312",
+    "cost": 54545,
+    "status": "gelir",
+    "date": "2025-06-14T08:02:08.439Z"
+  },
+  {
+    "id": 1749888219415,
+    "desc": "Daire 6 Haziran ayı aidat ödemesi",
+    "cost": 200,
+    "status": "gelir",
+    "deleted": false,
+    "date": "2025-06-14T08:03:39.415Z"
+  }
+]

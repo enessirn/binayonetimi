@@ -1,47 +1,46 @@
-import { Avatar, Card, Flex } from 'antd';
-import {DeleteOutlined} from "@ant-design/icons"
-function Aidatlar() {
-  const tarih = new Date();
-  const year = tarih.getFullYear();
-  const month = tarih.getMonth() + 1;
-  const day = tarih.getDate();
-  const formattedDate = `${day}/${month}/${year}`;
+import { DeleteOutlined } from "@ant-design/icons"
+import AidatCard from "./AidatCard"
+import axios from "axios"
+import { useEffect } from "react";
+function Aidatlar({ aidatStatus, setAidatStatus, setResetAidatStatus, resetAidatStatus }) {
+
+
+
+  // aidatlari sifirla
+  const resetAidats = async () => {
+    try {
+      const response = await axios.post('http://localhost:3000/api/aidats-reset');
+      console.log(response.data.message);
+
+      const updatedStatus = aidatStatus.map(item => ({
+        ...item,
+        status: false,
+        date: null
+      }));
+      setAidatStatus(updatedStatus);
+    } catch (error) {
+      console.error('Error resetting aidats:', error);
+    }
+  }
+
+  useEffect(() => {
+    if (resetAidatStatus) {
+      resetAidats();
+    }
+    setResetAidatStatus(false);
+  }, [resetAidatStatus]);
+
   return (
-    <div>
-      <button className="py-2 px-4 bg-red-200 text-black rounded font-bold text-red-600 cursor-pointer hover:bg-red-300 transition-colors mb-4"><DeleteOutlined /> Sıfırla</button>
-      <Flex gap="middle" align="start" vertical>
-        <Card style={{ width: "100%" }}>
-          <Card.Meta
-            avatar={<Avatar src="https://api.dicebear.com/7.x/miniavs/svg?seed=1" />}
-            title="Namık Şirin"
-            description={
-              <>
-                <p>{formattedDate}</p>
-                <p>Ödeme Durumu: <span className='text-red-500'>Ödenmedi</span></p>
-              </>
-            }
-          />
-          <button className='w-full cursor-pointer bg-gray-100 mt-4 py-4 rounded hover:bg-gray-200 text-xl'>Aidat ödediyse tıkla!</button>
-        </Card>
+    <>
+      <button className="py-2 px-4 bg-red-200 rounded font-bold text-red-600 cursor-pointer hover:bg-red-300 transition-colors mb-4" onClick={() => setResetAidatStatus(true)}><DeleteOutlined /> Sıfırla</button>
 
-      </Flex>
-      <Flex gap="middle" align="start" vertical>
-        <Card style={{ width: "100%" }}>
-          <Card.Meta
-            avatar={<Avatar src="https://api.dicebear.com/7.x/miniavs/svg?seed=2" />}
-            title="Enes Şirin"
-            description={
-              <>
-                <p>{formattedDate}</p>
-                <p>Ödeme Durumu: <span className='text-green-500'>Ödendi</span></p>
-              </>
-            }
-          />
-        </Card>
+      {
+        aidatStatus.map((item, index) => (
+          <AidatCard aidatStatus={aidatStatus} setAidatStatus={setAidatStatus} aidatIndex={index} key={item.id} />
+        ))
+      }
+    </>
 
-      </Flex>
-
-    </div>
   )
 }
 

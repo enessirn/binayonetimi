@@ -14,11 +14,15 @@ const balancePath = './data/balance.json';
 
 
 const aidatUcret = 200; // Aidat ücreti
+
+  const months = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran","Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"]
+  const currentMonth = new Date().getMonth();
+
 app.get('/api/ok', (req, res) => {
     res.json({ loading: true, message: 'Sunucu çalışıyor.' });
 });
 
-app.get('/api/aidats', (req, res) => {
+app.get('/api/aidat-status', (req, res) => {
     fs.readFile(aidatsPath, 'utf8', (err, data) => {
         if (err) {
             console.error('Error reading aidats file:', err);
@@ -47,6 +51,25 @@ app.post('/api/aidats/:id/ver', (req, res) => {
     const balanceData = JSON.parse(fs.readFileSync(balancePath));
     balanceData.amount += aidatUcret;
     fs.writeFileSync(balancePath, JSON.stringify(balanceData, null, 2));
+    // son islemler
+
+    const recentTransaction = JSON.parse(fs.readFileSync(transactionsPath));
+    
+    const newTransaction = {
+        id: Date.now(),
+        desc: `${person.name} ${months[currentMonth]} ayı aidat ödemesi`,
+        cost: aidatUcret,
+        status: 'gelir',
+        deleted: false,
+        date: new Date().toISOString()
+    };
+
+    fs.writeFileSync(balancePath, JSON.stringify(balanceData, null, 2));
+    recentTransaction.push(newTransaction);
+    fs.writeFileSync(transactionsPath, JSON.stringify(recentTransaction, null, 2));
+
+    res.json({ message: 'İşlem eklendi.', transaction: newTransaction });
+
     // aidat guncellemesi
     fs.writeFileSync(aidatsPath, JSON.stringify(data, null, 2));
     res.json({ message: 'Aidat verildi olarak işaretlendi.' });

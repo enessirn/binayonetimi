@@ -1,5 +1,5 @@
 import HomeCards from "./HomeCards"
-import LastTasks from "./LastTasks"
+import LastTasks from "./lasttasks"
 
 function App() {
   const months = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran","Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"]
