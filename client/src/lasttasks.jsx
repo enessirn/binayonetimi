@@ -3,17 +3,20 @@ import { List, Typography, Modal, InputNumber, Select, Input, Popconfirm, messag
 import { PlusOutlined } from "@ant-design/icons";
 import axios from "axios";
 import TransactionContext from "./context/TransactionContext";
+import AmountContext from './context/AmountContext';
 const { Option } = Select;
 
 
 function LastTasks() {
   // context
   const { fetchTransactions, transactions } = useContext(TransactionContext);
+  const { getAmount } = useContext(AmountContext);
   // state
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [status, setStatus] = useState("gelir");
   const [desc, setDesc] = useState("");
   const [cost, setCost] = useState(0);
+  const [loading, setLoading] = useState(false);
 
   // Modal açma
   const showModal = () => {
@@ -33,8 +36,7 @@ function LastTasks() {
     }
 
     await addTransaction(desc, cost, status);
-    await fetchTransactions();
-    resetForm();
+
   };
 
   // Formu sıfırla
@@ -55,7 +57,9 @@ function LastTasks() {
         date: new Date().toISOString()
       };
       await axios.post("http://localhost:3000/api/transactions-add", newData);
+      fetchTransactions();
       resetForm();
+      getAmount();
       message.success("İşlem başarıyla eklendi");
     } catch (error) {
       console.error("İşlem eklenirken hata:", error);
@@ -66,12 +70,18 @@ function LastTasks() {
   // İşlem sil
   const deleteTransaction = async (id) => {
     try {
+      setLoading(true);
       await axios.delete(`http://localhost:3000/api/transactions-delete/${id}`);
       message.success("İşlem başarıyla silindi");
       fetchTransactions();
+      getAmount();
+
     } catch (error) {
       console.error("İşlem silinirken hata:", error);
       message.error("İşlem silinirken bir hata oluştu");
+    }
+    finally {
+      setLoading(false);
     }
   };
 
@@ -101,7 +111,7 @@ function LastTasks() {
     <div className="mt-4 shadow-md">
 
       <button
-        className="w-[80%] text-white font-bold lg:w-1/3 shadow-md rounded-lg my-4 py-2 cursor-poin ter bg-blue-500 hover:bg-blue-600 transition-colors"
+        className="w-[80%] text-white font-bold lg:w-1/3 shadow-md rounded-lg my-4 py-2 cursor-pointer bg-blue-500 hover:bg-blue-600 transition-colors"
         onClick={showModal}
       >
         <PlusOutlined /> Yeni işlem ekle
@@ -129,8 +139,9 @@ function LastTasks() {
                   okText="Evet"
                   cancelText="Hayır"
                   okType="danger"
+                  disabled={loading}
                 >
-                  <button className="!text-red-500 !font-bold hover:!text-red-600 transition-colors ml-5 cursor-pointer">
+                  <button disabled={loading} className="!text-red-500 !font-bold hover:!text-red-600 transition-colors ml-5 cursor-pointer">
                     Sil
                   </button>
                 </Popconfirm> : null

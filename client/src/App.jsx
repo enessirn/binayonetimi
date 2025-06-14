@@ -1,26 +1,51 @@
+import { useEffect, useState } from "react";
 import HomeCards from "./HomeCards"
 import LastTasks from "./lasttasks"
-
+import Loading from './Loading.jsx'
+import axios from 'axios'
 function App() {
-  const months = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran","Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"]
+
+  const [ready, setReady] = useState(false);
+  const getReady = async () => {
+    try {
+      const response = await axios.get('http://localhost:3000/api/ok');
+      console.log(response.data);
+      setReady(true);
+    } catch (error) {
+      console.error('Error checking server readiness:', error);
+    }
+  }
+  useEffect(() => {
+    getReady();
+  }, [])
+
+  const months = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"]
   const currentMonth = new Date().getMonth();
   const currentDay = new Date().getDate();
   const currentYear = new Date().getFullYear();
   return (
     <>
-      <div className="w-full border-b-2 border-gray-200 bg-white p-4">
-        <h1 className="text-center font-bold text-xl">Sirinler Sitesi Aidat Yönetimi</h1>
-      </div>
-      <div className="card-list w-full px-8">
-        <div className="border-b-2 border-gray-400 w-full flex flex-row justify-between my-8">
-           <p className="text-xl lg:text-2xl text-gray-600 font-bold">Namık Şirin, hoş geldin!</p>
-           <h1 className='text-xl lg:text-2xl font-bold text-gray-600'>{currentDay} {months[currentMonth]} {currentYear}</h1>
-        </div>
-       
-        <HomeCards />
+      {
+        ready === false ? <Loading /> : (
+          <div>
+            <div className="w-full border-b-2 border-gray-200 p-4">
+              <h1 className="text-center font-bold text-xl">Sirinler Sitesi Aidat Yönetimi</h1>
+            </div>
+            <div className="card-list w-full px-8">
+              <div className="border-b-2 border-gray-400 w-full flex flex-row justify-between my-8">
+                <p className="text-md lg:text-2xl text-gray-600 font-bold">Namık Şirin</p>
+                <h1 className='text-md lg:text-2xl font-bold text-gray-600'>{currentDay} {months[currentMonth]} {currentYear}</h1>
+              </div>
 
-        <LastTasks />
-      </div>
+              <HomeCards />
+
+              <LastTasks /></div>
+
+          </div>
+        )
+      }
+
+
 
     </>
   )
