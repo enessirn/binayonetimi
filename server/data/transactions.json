@@ -94,5 +94,28 @@
     "status": "gelir",
     "deleted": false,
     "date": "2025-06-14T08:27:59.214Z"
+  },
+  {
+    "id": 1749891659118,
+    "desc": "Daire 2 Haziran ayı aidat ödemesi",
+    "cost": 200,
+    "status": "gelir",
+    "deleted": false,
+    "date": "2025-06-14T09:00:59.118Z"
+  },
+  {
+    "id": 1749891659778,
+    "desc": "Daire 1 Haziran ayı aidat ödemesi",
+    "cost": 200,
+    "status": "gelir",
+    "deleted": false,
+    "date": "2025-06-14T09:00:59.778Z"
+  },
+  {
+    "id": 1749891672246,
+    "desc": "adasdsa",
+    "cost": 355,
+    "status": "gider",
+    "date": "2025-06-14T09:01:12.246Z"
   }
 ]

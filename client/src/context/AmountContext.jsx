@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from 'react';
-
+import axios from 'axios';
 const AmountContext = createContext();
 
 
@@ -8,9 +8,8 @@ export const AmountProvider = ({ children }) => {
 
   const getAmount = async () => {
     try {
-      const response = await fetch('http://localhost:3000/api/balance');
-      const data = await response.json();
-      setAmount(data.amount);
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/balance`);
+      setAmount(response.data.amount);
     } catch (error) {
       console.error('Error fetching amount:', error);
     }

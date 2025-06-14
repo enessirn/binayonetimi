@@ -9,7 +9,7 @@ function Aidatlar({ aidatStatus, setAidatStatus, setResetAidatStatus, resetAidat
   // aidatlari sifirla
   const resetAidats = async () => {
     try {
-      const response = await axios.post('http://localhost:3000/api/aidats-reset');
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/aidats-reset`);
       console.log(response.data.message);
 
       const updatedStatus = aidatStatus.map(item => ({

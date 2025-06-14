@@ -10,8 +10,7 @@ export const TransactionProvider = ({ children }) => {
 
   const fetchTransactions = async () => {
     try {
-      const response = await axios('http://localhost:3000/api/transactions');
-      console.log('Transactions fetched:', response.data);
+      const response = await axios(`${import.meta.env.VITE_API_URL}/transactions`);
       setTransactions(response.data.reverse());
     } catch (error) {
       console.error('Error fetching transactions:', error);

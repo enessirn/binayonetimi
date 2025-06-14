@@ -19,7 +19,7 @@ function AidatCard({ aidatStatus, setAidatStatus, aidatIndex }) {
     setAidatStatus(updatedAidatStatus);
     setLoading(true);
     // api
-    await axios.post(`http://localhost:3000/api/aidats/${aidatStatus[aidatIndex].id}/ver`, {
+    await axios.post(`${import.meta.env.VITE_API_URL}/aidats/${aidatStatus[aidatIndex].id}/ver`, {
       id: aidatStatus[aidatIndex].id,
       date: formattedDate
     });

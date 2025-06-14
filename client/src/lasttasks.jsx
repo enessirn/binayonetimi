@@ -56,7 +56,7 @@ function LastTasks() {
         status,
         date: new Date().toISOString()
       };
-      await axios.post("http://localhost:3000/api/transactions-add", newData);
+      await axios.post(`${import.meta.env.VITE_API_URL}/transactions-add`, newData);
       fetchTransactions();
       resetForm();
       getAmount();
@@ -71,7 +71,7 @@ function LastTasks() {
   const deleteTransaction = async (id) => {
     try {
       setLoading(true);
-      await axios.delete(`http://localhost:3000/api/transactions-delete/${id}`);
+      await axios.delete(`${import.meta.env.VITE_API_URL}/transactions-delete/${id}`);
       message.success("İşlem başarıyla silindi");
       fetchTransactions();
       getAmount();

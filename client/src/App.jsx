@@ -8,7 +8,7 @@ function App() {
   const [ready, setReady] = useState(false);
   const getReady = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/api/ok');
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/ok`);
       console.log(response.data);
       setReady(true);
     } catch (error) {

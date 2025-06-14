@@ -20,8 +20,7 @@ function HomeCards() {
   // aidat durumu
   const fetchAidatStatus = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/api/aidat-status');
-      console.log('Aidat status fetched:', response.data);
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/aidat-status`);
       setAidatStatus(response.data);
     } catch (error) {
       console.error('Error fetching aidat status:', error);
@@ -30,7 +29,6 @@ function HomeCards() {
   const aidatVerenler = aidatStatus.filter(item => item.status === true).length;
 
   useEffect(() => {
-    console.log('Aidat verenler:', aidatVerenler);
     getAmount();
     fetchAidatStatus();
   }, []);
